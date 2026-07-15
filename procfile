@@ -1,2 +1,0 @@
-web: gunicorn ivision.wsgi --log-file
-web: python manage.py migrate && gunicorn ivision.wsg

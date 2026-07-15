@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,8 +26,8 @@ SECRET_KEY = 'django-insecure-4wf7rclc2j+n+=cfa4p1s*sp!r^#=ul3nf0v=9!p6@#b7-jhaw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['ivision.up.railway.app','ivision-8080.up.railway.app','127.0.0.1', '.vercel.app']
-CSRF_TRUSTED_ORIGINS = ['https://ivision-8080.up.railway.app','https://ivision.up.railway.app']
+ALLOWED_HOSTS = ['ivision.up.railway.app','ivision-8080.up.railway.app','127.0.0.1', '.vercel.app', '*']
+CSRF_TRUSTED_ORIGINS = ['https://ivision-8080.up.railway.app','https://ivision.up.railway.app', 'https://*.up.railway.app']
 # Application definition
 WSGI_APPLICATION = 'ivision.wsgi.app'
 INSTALLED_APPS = [     
@@ -80,16 +81,10 @@ WSGI_APPLICATION = 'ivision.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',    
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'railway',
-        'USER':'postgres',
-        'PASSWORD': 'ZJQLyuINjWPJiKVVHQmsxhcQkgKRfiEk',
-        'HOST':'hopper.proxy.rlwy.net',
-        'PORT':'29986',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
 }
 
 
